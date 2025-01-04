@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.example.youtubeapp"
-    compileSdk = 35
+    compileSdk = 31
 
     defaultConfig {
         applicationId = "com.example.youtubeapp"
@@ -45,6 +45,8 @@ dependencies {
     implementation(libs.material)
     implementation(libs.google.gson)
     implementation(libs.glide)
+    implementation(libs.androidx.media3.exoplayer)
+    implementation(libs.androidx.media3.ui)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
