@@ -12,7 +12,7 @@ data class VideoItem(
     @SerializedName("title")
     val title: String,
     @SerializedName("videoUrl")
-    val videoUrl: String,
+    val sources: String,
     @SerializedName("channelName")
     val channelName: String,
     @SerializedName("viewCount")
@@ -21,6 +21,6 @@ data class VideoItem(
     val dateText: String,
     @SerializedName("channelThumb")
     val channelThumb: String,
-    @SerializedName("videoThumb")
-    val videoThumb: String,
+    @SerializedName("thumb") // json에서 이 키로 불러와서
+    val videoThumb: String, // 이 닉네임으로 사용해
 )
