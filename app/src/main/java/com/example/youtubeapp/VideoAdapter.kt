@@ -1,16 +1,39 @@
 package com.example.youtubeapp
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.youtubeapp.databinding.ItemVideoBinding
 
-class VideoAdapter: ListAdapter<VideoItem, VideoAdapter.ViewHolder>(diffUtil) {
-    inner class ViewHolder(private val binding: ItemVideoBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(item: VideoItem){
+// 어댑터에는 컨텍스트가 없기 때문에 외부에서 가져옴
+class VideoAdapter(private val context: Context) :
+    ListAdapter<VideoItem, VideoAdapter.ViewHolder>(diffUtil) {
+    inner class ViewHolder(private val binding: ItemVideoBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: VideoItem) {
+            binding.titleTextView.text = item.title
+            binding.subTitleTextView.text = context.getString(
+                R.string.sub_title_video_info,
+                item.channelName,
+                item.viewCount,
+                item.dateText
+            )
 
+            Glide.with(binding.videoThumbnailImageView)
+                .load(item.videoThumb)
+                .into(binding.videoThumbnailImageView)
+
+            Glide.with(binding.channelLogoImageView)
+                .load(item.channelThumb)
+                .circleCrop()
+                .into(binding.channelLogoImageView)
+
+            binding.channelLogoImageView
+            binding.videoThumbnailImageView
         }
     }
 
@@ -28,12 +51,13 @@ class VideoAdapter: ListAdapter<VideoItem, VideoAdapter.ViewHolder>(diffUtil) {
         holder.bind(currentList[position])
     }
 
-    companion object{
-        val diffUtil = object : DiffUtil.ItemCallback<VideoItem>(){
-            override fun areItemsTheSame(oldItem: VideoItem, newItem: VideoItem): Boolean{
+    companion object {
+        val diffUtil = object : DiffUtil.ItemCallback<VideoItem>() {
+            override fun areItemsTheSame(oldItem: VideoItem, newItem: VideoItem): Boolean {
                 return oldItem.id == newItem.id
             }
-            override fun areContentsTheSame(oldItem: VideoItem, newItem: VideoItem): Boolean{
+
+            override fun areContentsTheSame(oldItem: VideoItem, newItem: VideoItem): Boolean {
                 return oldItem == newItem
             }
         }
