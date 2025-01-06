@@ -10,6 +10,7 @@
         <KeyFrameSet>
             <KeyPosition
                 motion:percentWidth="1"
+                motion:percentX="1"
                 motion:framePosition="10"
                 motion:motionTarget="@+id/playerView"
                 />
@@ -29,8 +30,6 @@
                 android:alpha="0.1"
                 motion:framePosition="10"
                 motion:motionTarget="@+id/videoTitleTextView" />
-
-
         </KeyFrameSet>
     </Transition>
 
