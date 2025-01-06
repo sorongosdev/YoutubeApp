@@ -43,7 +43,12 @@
             app:layout_constraintTop_toTopOf="@id/videoPlayerContainer"
             />
 
-        <Constraint android:id="@id/controlButton" />
+        <Constraint android:id="@id/controlButton"
+            android:alpha="0"
+            app:layout_constraintBottom_toBottomOf="@id/videoPlayerContainer"
+            app:layout_constraintEnd_toStartOf="@id/hideButton"
+            app:layout_constraintTop_toTopOf="@id/videoPlayerContainer"
+            />
         <Constraint android:id="@id/hideButton" />
         <Constraint android:id="@id/recyclerViewContainer" />
         <Constraint android:id="@id/playerRecyclerView" />
@@ -76,6 +81,16 @@
             app:layout_constraintStart_toEndOf="@id/playerView"
             app:layout_constraintTop_toTopOf="@id/videoPlayerContainer"
             />
+
+        <Constraint android:id="@id/controlButton"
+            android:alpha="1"
+            app:layout_constraintBottom_toBottomOf="@id/videoPlayerContainer"
+            app:layout_constraintEnd_toStartOf="@id/hideButton"
+            app:layout_constraintTop_toTopOf="@id/videoPlayerContainer"
+            />
+
+        
+
     </ConstraintSet>
 
 </MotionScene>
