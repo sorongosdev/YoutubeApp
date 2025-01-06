@@ -3,11 +3,20 @@
     xmlns:motion="http://schemas.android.com/apk/res-auto">
 
     <Transition
-        constraintSetEnd="@id/expand"
-        constraintSetStart="@id/collapse"
+        motion:constraintSetEnd="@id/expand"
+        motion:constraintSetStart="@id/collapse"
         motion:duration="300"
         motion:motionInterpolator="linear">
         <KeyFrameSet>
+            <KeyPosition
+                motion:percentWidth="1"
+                motion:framePosition="10"
+                motion:motionTarget="@+id/playerView"
+                />
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="25"
+                motion:motionTarget="@+id/playerRecyclerView" />
             <KeyAttribute
                 android:alpha="0.1"
                 motion:framePosition="10"
@@ -20,10 +29,7 @@
                 android:alpha="0.1"
                 motion:framePosition="10"
                 motion:motionTarget="@+id/videoTitleTextView" />
-            <KeyAttribute
-                android:alpha="0"
-                motion:framePosition="25"
-                motion:motionTarget="@+id/playerRecyclerView" />
+
 
         </KeyFrameSet>
     </Transition>
