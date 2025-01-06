@@ -13,6 +13,7 @@
                 motion:percentX="1"
                 motion:framePosition="10"
                 motion:motionTarget="@+id/playerView"
+                motion:curveFit="linear"
                 />
             <KeyAttribute
                 android:alpha="0"
