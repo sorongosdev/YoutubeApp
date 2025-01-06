@@ -20,6 +20,10 @@
                 android:alpha="0.1"
                 app:framePosition="10"
                 app:motionTarget="@+id/videoTitleTextView" />
+            <KeyAttribute
+                android:alpha="0"
+                app:framePosition="25"
+                app:motionTarget="@+id/playerRecyclerView" />
 
         </KeyFrameSet>
     </Transition>
