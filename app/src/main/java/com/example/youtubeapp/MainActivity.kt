@@ -30,7 +30,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         initMotionLayout()
+        initVideoRecyclerView()
+    }
 
+    private fun initVideoRecyclerView() {
         binding.videoListRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = videoAdapter
