@@ -109,9 +109,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initPlayerVideoRecyclerView() {
-        binding.playerRecyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = videoAdapter
+        playerVideoAdapter = PlayerVideoAdapter(context = this) { videoItem ->
+            play(videoItem)
+
+            val list = listOf(videoItem) + videoList.videos.filter {
+                it.id != videoItem.id
+            }
+            playerVideoAdapter.submitList(list)
         }
     }
 
