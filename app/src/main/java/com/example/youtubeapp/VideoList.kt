@@ -11,8 +11,8 @@ data class VideoItem(
     val id: String,
     @SerializedName("title")
     val title: String,
-    @SerializedName("videoUrl")
-    val sources: String,
+    @SerializedName("sources")
+    val videoUrl: String,
     @SerializedName("channelName")
     val channelName: String,
     @SerializedName("viewCount")
