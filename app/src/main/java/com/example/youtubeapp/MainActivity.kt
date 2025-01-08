@@ -29,8 +29,7 @@ class MainActivity : AppCompatActivity() {
             play(videoItem)
         }
 
-        // jumpToState는 지원않는 것으로 보임. transitionToState로 대체
-        binding.motionLayout.transitionToState(R.id.collapse)
+        initMotionLayout()
 
         binding.videoListRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
@@ -39,6 +38,12 @@ class MainActivity : AppCompatActivity() {
 
         val videoList = readData("videos.json", VideoList::class.java) ?: VideoList(emptyList())
         videoAdapter.submitList(videoList.videos)
+    }
+
+    private fun initMotionLayout() {
+        binding.motionLayout.targetView = binding.videoPlayerContainer
+        // jumpToState는 지원않는 것으로 보임. transitionToState로 대체
+        binding.motionLayout.transitionToState(R.id.collapse)
     }
 
     private fun play(videoItem: VideoItem) {
