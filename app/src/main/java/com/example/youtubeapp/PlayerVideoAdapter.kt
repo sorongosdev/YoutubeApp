@@ -10,11 +10,21 @@ import com.bumptech.glide.Glide
 import com.example.youtubeapp.databinding.ItemVideoBinding
 import com.example.youtubeapp.databinding.ItemVideoHeaderBinding
 
-class PlayerVideoAdapter(private val context: Context,private val onClick: (VideoItem) -> Unit): ListAdapter<VideoItem, RecyclerView.ViewHolder>(diffUtil) {
+class PlayerVideoAdapter(private val context: Context, private val onClick: (VideoItem) -> Unit) :
+    ListAdapter<VideoItem, RecyclerView.ViewHolder>(diffUtil) {
     inner class HeaderViewHolder(private val binding: ItemVideoHeaderBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: VideoItem) {
+            binding.titleTextView.text = item.title
+            binding.subTitleTextView.text = context.getString(
+                R.string.header_sub_title_video_info, item.viewCount, item.dateText
+            )
+            binding.channelNameTextView.text = item.channelName
 
+            Glide.with(binding.channelLogoImageView)
+                .load(item.channelThumb)
+                .circleCrop()
+                .into(binding.channelLogoImageView)
         }
     }
 
