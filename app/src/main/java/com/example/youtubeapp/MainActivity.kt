@@ -2,6 +2,7 @@ package com.example.youtubeapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.media3.exoplayer.ExoPlayer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.youtubeapp.databinding.ActivityMainBinding
 
@@ -11,6 +12,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private lateinit var videoAdapter: VideoAdapter
+
+    private var player: ExoPlayer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,5 +35,30 @@ class MainActivity : AppCompatActivity() {
 
         val videoList = readData("videos.json", VideoList::class.java) ?: VideoList(emptyList())
         videoAdapter.submitList(videoList.videos)
+    }
+
+    private fun initExoPlayer() {
+        player = ExoPlayer.Builder(this).build()
+            .also {
+                binding.playerView.player = player
+            }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (player == null) {
+            initExoPlayer()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (player == null) {
+            initExoPlayer()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 }
