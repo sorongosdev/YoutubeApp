@@ -61,9 +61,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initVideoRecyclerView() {
         videoAdapter = VideoAdapter(context = this) { videoItem ->
-            // start: collapse, end: expand
             binding.motionLayout.setTransition(R.id.collapse, R.id.expand)
-            binding.motionLayout.transitionToEnd()
 
             // 현재 플레이어에서 보여주고 있는 아이템은 헤더로, 그 아래부터는 나머지 리스트를 보여줌
             val list = listOf(videoItem) + videoList.videos.filter {
@@ -117,6 +115,11 @@ class MainActivity : AppCompatActivity() {
                 it.id != videoItem.id
             }
             playerVideoAdapter.submitList(list)
+        }
+
+        binding.playerRecyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = playerVideoAdapter
         }
     }
 
