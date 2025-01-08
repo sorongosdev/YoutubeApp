@@ -68,6 +68,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onStop() {
+        super.onStop()
+        player?.pause()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
     }
