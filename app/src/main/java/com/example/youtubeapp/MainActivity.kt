@@ -34,6 +34,10 @@ class MainActivity : AppCompatActivity() {
         initMotionLayout()
         initVideoRecyclerView()
 
+        initControlbutton()
+    }
+
+    private fun initControlbutton() {
         binding.controlButton.setOnClickListener {
             // player가 null일 경우 아무것도 하지 않음
             player?.let { // null이 아닐때 처리
