@@ -24,14 +24,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        videoAdapter = VideoAdapter(context = this) { videoItem ->
-            // start: collapse, end: expand
-            binding.motionLayout.setTransition(R.id.collapse, R.id.expand)
-            binding.motionLayout.transitionToEnd()
-
-            play(videoItem)
-        }
-
         initMotionLayout()
         initVideoRecyclerView()
         initPlayerVideoRecyclerView()
@@ -41,7 +33,6 @@ class MainActivity : AppCompatActivity() {
 
         val videoList = readData("videos.json", VideoList::class.java) ?: VideoList(emptyList())
         videoAdapter.submitList(videoList.videos)
-        playerVideoAdapter.submitList(videoList.videos)
     }
 
     private fun initHideButton() {
@@ -66,13 +57,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initVideoRecyclerView() {
+        videoAdapter = VideoAdapter(context = this) { videoItem ->
+            // start: collapse, end: expand
+            binding.motionLayout.setTransition(R.id.collapse, R.id.expand)
+            binding.motionLayout.transitionToEnd()
+
+            play(videoItem)
+        }
+
         binding.videoListRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = videoAdapter
         }
-
-        val videoList = readData("videos.json", VideoList::class.java) ?: VideoList(emptyList())
-        videoAdapter.submitList(videoList.videos)
     }
 
     private fun initMotionLayout() {
