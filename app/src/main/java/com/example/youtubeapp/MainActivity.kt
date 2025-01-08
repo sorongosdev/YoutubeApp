@@ -34,8 +34,11 @@ class MainActivity : AppCompatActivity() {
         initMotionLayout()
         initVideoRecyclerView()
 
-        initControlbutton()
+        initControlButton()
+        initHideButton()
+    }
 
+    private fun initHideButton() {
         binding.hideButton.setOnClickListener {
             binding.motionLayout.transitionToState(R.id.hide)
             //hide가 됐을 때는 영상 일시정지
@@ -43,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initControlbutton() {
+    private fun initControlButton() {
         binding.controlButton.setOnClickListener {
             // player가 null일 경우 아무것도 하지 않음
             player?.let { // null이 아닐때 처리
