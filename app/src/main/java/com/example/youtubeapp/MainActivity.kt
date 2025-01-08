@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private lateinit var videoAdapter: VideoAdapter
+    private lateinit var playerVideoAdapter: PlayerVideoAdapter
 
     private var player: ExoPlayer? = null
 
@@ -33,9 +34,14 @@ class MainActivity : AppCompatActivity() {
 
         initMotionLayout()
         initVideoRecyclerView()
+        initPlayerVideoRecyclerView()
 
         initControlButton()
         initHideButton()
+
+        val videoList = readData("videos.json", VideoList::class.java) ?: VideoList(emptyList())
+        videoAdapter.submitList(videoList.videos)
+        playerVideoAdapter.submitList(videoList.videos)
     }
 
     private fun initHideButton() {
@@ -70,6 +76,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initMotionLayout() {
+        playerVideoAdapter = PlayerVideoAdapter(context = this){ videoItem ->
+            play(videoItem)
+        }
+
         binding.motionLayout.targetView = binding.videoPlayerContainer
         // jumpToState는 지원않는 것으로 보임. transitionToState로 대체
         binding.motionLayout.transitionToState(R.id.hide)
@@ -92,6 +102,13 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    private fun initPlayerVideoRecyclerView() {
+        binding.playerRecyclerView.apply{
+            layoutManager = LinearLayoutManager(context)
+            adapter = videoAdapter
+        }
     }
 
     private fun play(videoItem: VideoItem) {
