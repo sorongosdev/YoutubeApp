@@ -85,6 +85,8 @@ class MainActivity : AppCompatActivity() {
         player?.setMediaItem(MediaItem.fromUri(Uri.parse(videoItem.videoUrl)))
         player?.prepare()
         player?.play()
+
+        binding.videoTitleTextView.text = videoItem.title
     }
 
     private fun initExoPlayer() {
