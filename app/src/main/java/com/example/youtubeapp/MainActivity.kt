@@ -1,7 +1,9 @@
 package com.example.youtubeapp
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.youtubeapp.databinding.ActivityMainBinding
@@ -23,6 +25,8 @@ class MainActivity : AppCompatActivity() {
             // start: collapse, end: expand
             binding.motionLayout.setTransition(R.id.collapse, R.id.expand)
             binding.motionLayout.transitionToEnd()
+
+            play(videoItem)
         }
 
         // jumpToState는 지원않는 것으로 보임. transitionToState로 대체
@@ -37,10 +41,16 @@ class MainActivity : AppCompatActivity() {
         videoAdapter.submitList(videoList.videos)
     }
 
+    private fun play(videoItem: VideoItem) {
+        player?.setMediaItem(MediaItem.fromUri(Uri.parse(videoItem.videoUrl)))
+        player?.prepare()
+        player?.play()
+    }
+
     private fun initExoPlayer() {
         player = ExoPlayer.Builder(this).build()
-            .also {
-                binding.playerView.player = player
+            .also { exoPlayer ->
+                binding.playerView.player = exoPlayer
             }
     }
 
