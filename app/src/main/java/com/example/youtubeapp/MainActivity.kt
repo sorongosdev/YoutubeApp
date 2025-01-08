@@ -35,6 +35,12 @@ class MainActivity : AppCompatActivity() {
         initVideoRecyclerView()
 
         initControlbutton()
+
+        binding.hideButton.setOnClickListener {
+            binding.motionLayout.transitionToState(R.id.hide)
+            //hide가 됐을 때는 영상 일시정지
+            player?.pause()
+        }
     }
 
     private fun initControlbutton() {
@@ -63,7 +69,7 @@ class MainActivity : AppCompatActivity() {
     private fun initMotionLayout() {
         binding.motionLayout.targetView = binding.videoPlayerContainer
         // jumpToState는 지원않는 것으로 보임. transitionToState로 대체
-        binding.motionLayout.transitionToState(R.id.collapse)
+        binding.motionLayout.transitionToState(R.id.hide)
 
         binding.motionLayout.setTransitionListener(object: MotionLayout.TransitionListener{
             override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {
