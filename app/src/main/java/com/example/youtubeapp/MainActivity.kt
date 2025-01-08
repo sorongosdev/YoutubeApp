@@ -20,7 +20,9 @@ class MainActivity : AppCompatActivity() {
 
     private var player: ExoPlayer? = null
 
-    private val videoList = readData("videos.json", VideoList::class.java) ?: VideoList(emptyList())
+    private val videoList: VideoList by lazy {
+        readData("videos.json", VideoList::class.java) ?: VideoList(emptyList())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +35,6 @@ class MainActivity : AppCompatActivity() {
         initControlButton()
         initHideButton()
 
-        val videoList = readData("videos.json", VideoList::class.java) ?: VideoList(emptyList())
         videoAdapter.submitList(videoList.videos)
     }
 
