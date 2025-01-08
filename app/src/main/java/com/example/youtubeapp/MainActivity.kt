@@ -3,6 +3,7 @@ package com.example.youtubeapp
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
@@ -59,6 +60,25 @@ class MainActivity : AppCompatActivity() {
         binding.motionLayout.targetView = binding.videoPlayerContainer
         // jumpToState는 지원않는 것으로 보임. transitionToState로 대체
         binding.motionLayout.transitionToState(R.id.collapse)
+
+        binding.motionLayout.setTransitionListener(object: MotionLayout.TransitionListener{
+            override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {
+            }
+
+            override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) {
+                //뷰가 바뀌고 있는 상태에서 컨트롤러를 끔.
+                binding.playerView.useController = false
+            }
+
+            override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
+                //확장 상태면 컨트롤러를 띄움
+                binding.playerView.useController = (currentId == R.id.expand)
+            }
+
+            override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) {
+            }
+
+        })
     }
 
     private fun play(videoItem: VideoItem) {
@@ -71,6 +91,7 @@ class MainActivity : AppCompatActivity() {
         player = ExoPlayer.Builder(this).build()
             .also { exoPlayer ->
                 binding.playerView.player = exoPlayer
+                binding.playerView.useController = false
 
                 exoPlayer.addListener(object : Player.Listener {
                     override fun onIsPlayingChanged(isPlaying: Boolean) {
