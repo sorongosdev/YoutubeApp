@@ -4,6 +4,7 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.media3.common.MediaItem
+import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.youtubeapp.databinding.ActivityMainBinding
@@ -70,6 +71,18 @@ class MainActivity : AppCompatActivity() {
         player = ExoPlayer.Builder(this).build()
             .also { exoPlayer ->
                 binding.playerView.player = exoPlayer
+
+                exoPlayer.addListener(object : Player.Listener {
+                    override fun onIsPlayingChanged(isPlaying: Boolean) {
+                        super.onIsPlayingChanged(isPlaying)
+
+                        if (isPlaying) {
+                            binding.controlButton.setImageResource(R.drawable.ic_pause)
+                        } else {
+                            binding.controlButton.setImageResource(R.drawable.ic_play)
+                        }
+                    }
+                })
             }
     }
 
