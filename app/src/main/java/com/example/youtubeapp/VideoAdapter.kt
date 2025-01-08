@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.example.youtubeapp.databinding.ItemVideoBinding
 
 // 어댑터에는 컨텍스트가 없기 때문에 외부에서 가져옴
-class VideoAdapter(private val context: Context) :
+class VideoAdapter(private val context: Context, private val onClick: (VideoItem) -> Unit) :
     ListAdapter<VideoItem, VideoAdapter.ViewHolder>(diffUtil) {
     inner class ViewHolder(private val binding: ItemVideoBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -32,8 +32,9 @@ class VideoAdapter(private val context: Context) :
                 .circleCrop()
                 .into(binding.channelLogoImageView)
 
-            binding.channelLogoImageView
-            binding.videoThumbnailImageView
+            binding.root.setOnClickListener {
+                onClick.invoke(item)
+            }
         }
     }
 
