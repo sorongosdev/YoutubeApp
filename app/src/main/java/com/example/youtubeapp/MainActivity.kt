@@ -20,6 +20,8 @@ class MainActivity : AppCompatActivity() {
 
     private var player: ExoPlayer? = null
 
+    private val videoList = readData("videos.json", VideoList::class.java) ?: VideoList(emptyList())
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -62,6 +64,12 @@ class MainActivity : AppCompatActivity() {
             binding.motionLayout.setTransition(R.id.collapse, R.id.expand)
             binding.motionLayout.transitionToEnd()
 
+            // 현재 플레이어에서 보여주고 있는 아이템은 헤더로, 그 아래부터는 나머지 리스트를 보여줌
+            val list = listOf(videoItem) + videoList.videos.filter {
+                it.id != videoItem.id
+            }
+            playerVideoAdapter.submitList(list)
+
             play(videoItem)
         }
 
@@ -72,7 +80,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initMotionLayout() {
-        playerVideoAdapter = PlayerVideoAdapter(context = this){ videoItem ->
+        playerVideoAdapter = PlayerVideoAdapter(context = this) { videoItem ->
             play(videoItem)
         }
 
@@ -80,7 +88,7 @@ class MainActivity : AppCompatActivity() {
         // jumpToState는 지원않는 것으로 보임. transitionToState로 대체
         binding.motionLayout.transitionToState(R.id.hide)
 
-        binding.motionLayout.setTransitionListener(object: MotionLayout.TransitionListener{
+        binding.motionLayout.setTransitionListener(object : MotionLayout.TransitionListener {
             override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {
             }
 
@@ -101,7 +109,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initPlayerVideoRecyclerView() {
-        binding.playerRecyclerView.apply{
+        binding.playerRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = videoAdapter
         }
