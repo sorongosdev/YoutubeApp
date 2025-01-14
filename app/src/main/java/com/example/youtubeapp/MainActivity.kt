@@ -114,8 +114,10 @@ class MainActivity : AppCompatActivity() {
             val list = listOf(videoItem) + videoList.videos.filter {
                 it.id != videoItem.id
             }
-            playerVideoAdapter.submitList(list)
-            binding.playerRecyclerView.scrollToPosition(0)
+            playerVideoAdapter.submitList(list) {
+                binding.playerRecyclerView.scrollToPosition(0)
+            }
+
         }
 
         binding.playerRecyclerView.apply {
