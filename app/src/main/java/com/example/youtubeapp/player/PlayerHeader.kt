@@ -1,7 +1,7 @@
 package com.example.youtubeapp.player
 
 data class PlayerHeader(
-    val id: String,
+    override val id: String,
     val title: String,
     val channelName: String,
     val viewCount: String,
