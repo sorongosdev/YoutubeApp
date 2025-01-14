@@ -76,7 +76,44 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:played_color="?attr/colorPrimary"
-        app:scrubber_color="?attr/colorAccent"/>
+        app:scrubber_color="?attr/colorAccent" />
+
+    <TextView
+        android:id="@+id/exo_position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="8dp"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@id/exo_progress"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="00:00" />
+
+    <TextView
+        android:id="@+id/dividerView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="8dp"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@id/exo_progress"
+        app:layout_constraintStart_toEndOf="@id/exo_position"
+        android:text="/"
+        />
+
+    <TextView
+        android:id="@+id/exo_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="8dp"
+        android:textColor="#858585"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@id/exo_progress"
+        app:layout_constraintStart_toEndOf="@id/dividerView"
+        tools:text="00:00" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
