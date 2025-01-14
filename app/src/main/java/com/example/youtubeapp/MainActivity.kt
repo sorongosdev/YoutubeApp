@@ -9,6 +9,9 @@ import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.youtubeapp.databinding.ActivityMainBinding
+import com.example.youtubeapp.player.PlayerHeader
+import com.example.youtubeapp.player.PlayerVideoAdapter
+import com.example.youtubeapp.player.transform
 
 class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy {
@@ -62,14 +65,24 @@ class MainActivity : AppCompatActivity() {
     private fun initVideoRecyclerView() {
         videoAdapter = VideoAdapter(context = this) { videoItem ->
             binding.motionLayout.setTransition(R.id.collapse, R.id.expand)
+            binding.motionLayout.transitionToEnd()
+
+            val headerModel = PlayerHeader(
+                id = "H${videoItem.id}",
+                title = videoItem.title,
+                videoItem.channelName,
+                videoItem.viewCount,
+                videoItem.dateText,
+                videoItem.channelThumb
+            )
 
             // 현재 플레이어에서 보여주고 있는 아이템은 헤더로, 그 아래부터는 나머지 리스트를 보여줌
-            val list = listOf(videoItem) + videoList.videos.filter {
+            val list = listOf(headerModel) + videoList.videos.filter {
                 it.id != videoItem.id
-            }
+            }.map { it.transform() }
             playerVideoAdapter.submitList(list)
 
-            play(videoItem)
+            play(videoItem.videoUrl, videoItem.title)
         }
 
         binding.videoListRecyclerView.apply {
@@ -79,8 +92,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initMotionLayout() {
-        playerVideoAdapter = PlayerVideoAdapter(context = this) { videoItem ->
-            play(videoItem)
+        playerVideoAdapter = PlayerVideoAdapter(context = this) { playerVideo ->
+            play(playerVideo.videoUrl, playerVideo.title)
         }
 
         binding.motionLayout.targetView = binding.videoPlayerContainer
@@ -108,12 +121,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initPlayerVideoRecyclerView() {
-        playerVideoAdapter = PlayerVideoAdapter(context = this) { videoItem ->
-            play(videoItem)
+        playerVideoAdapter = PlayerVideoAdapter(context = this) { playerVideo ->
+            play(playerVideo.videoUrl, playerVideo.title)
 
-            val list = listOf(videoItem) + videoList.videos.filter {
-                it.id != videoItem.id
-            }
+            val headerModel = PlayerHeader(
+                id = "H${playerVideo.id}",
+                title = playerVideo.title,
+                playerVideo.channelName,
+                playerVideo.viewCount,
+                playerVideo.dateText,
+                playerVideo.channelThumb
+            )
+
+            val list = listOf(headerModel) + videoList.videos.filter { it.id != playerVideo.id }
+                .map { it.transform() }
             playerVideoAdapter.submitList(list) {
                 binding.playerRecyclerView.scrollToPosition(0)
             }
@@ -127,12 +148,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun play(videoItem: VideoItem) {
-        player?.setMediaItem(MediaItem.fromUri(Uri.parse(videoItem.videoUrl)))
+    private fun play(videoUrl: String, videoTitle: String) {
+        player?.setMediaItem(MediaItem.fromUri(Uri.parse(videoUrl)))
         player?.prepare()
         player?.play()
 
-        binding.videoTitleTextView.text = videoItem.title
+        binding.videoTitleTextView.text = videoTitle
     }
 
     private fun initExoPlayer() {
