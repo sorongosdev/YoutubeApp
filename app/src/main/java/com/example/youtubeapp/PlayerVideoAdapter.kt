@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.youtubeapp.databinding.ItemVideoBinding
 import com.example.youtubeapp.databinding.ItemVideoHeaderBinding
+import com.example.youtubeapp.player.PlayerHeader
+import com.example.youtubeapp.player.PlayerVideo
 import com.example.youtubeapp.player.PlayerVideoModel
 
 class PlayerVideoAdapter(private val context: Context, private val onClick: (VideoItem) -> Unit) :
@@ -17,7 +19,7 @@ class PlayerVideoAdapter(private val context: Context, private val onClick: (Vid
     inner class HeaderViewHolder(private val binding: ItemVideoHeaderBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: VideoItem) {
+        fun bind(item: PlayerHeader) {
             binding.titleTextView.text = item.title
             binding.subTitleTextView.text = context.getString(
                 R.string.header_sub_title_video_info, item.viewCount, item.dateText
@@ -33,7 +35,7 @@ class PlayerVideoAdapter(private val context: Context, private val onClick: (Vid
 
     inner class VideoViewHolder(private val binding: ItemVideoBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: VideoItem) {
+        fun bind(item: PlayerVideo) {
             binding.titleTextView.text = item.title
             binding.subTitleTextView.text = context.getString(
                 R.string.sub_title_video_info,
@@ -80,9 +82,9 @@ class PlayerVideoAdapter(private val context: Context, private val onClick: (Vid
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == VIEW_TYPE_HEADER) {
             //ViewHolder 안에 있는 bind 함수를 호출
-            (holder as HeaderViewHolder).bind(currentList[position])
+            (holder as HeaderViewHolder).bind(currentList[position] as PlayerHeader)
         } else {
-            (holder as VideoViewHolder).bind(currentList[position])
+            (holder as VideoViewHolder).bind(currentList[position] as PlayerVideo)
         }
     }
 
@@ -94,13 +96,25 @@ class PlayerVideoAdapter(private val context: Context, private val onClick: (Vid
     companion object {
         private const val VIEW_TYPE_HEADER = 0
         private const val VIEW_TYPE_VIDEO = 1
-        val diffUtil = object : DiffUtil.ItemCallback<VideoItem>() {
-            override fun areItemsTheSame(oldItem: VideoItem, newItem: VideoItem): Boolean {
+        val diffUtil = object : DiffUtil.ItemCallback<PlayerVideoModel>() {
+            override fun areItemsTheSame(
+                oldItem: PlayerVideoModel,
+                newItem: PlayerVideoModel
+            ): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: VideoItem, newItem: VideoItem): Boolean {
-                return oldItem == newItem
+            override fun areContentsTheSame(
+                oldItem: PlayerVideoModel,
+                newItem: PlayerVideoModel
+            ): Boolean {
+                return if (oldItem is PlayerVideo && newItem is PlayerVideo) {
+                    oldItem == newItem
+                } else if (oldItem is PlayerHeader && newItem is PlayerHeader) {
+                    oldItem == newItem
+                } else {
+                    false
+                }
             }
 
         }
