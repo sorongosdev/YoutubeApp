@@ -13,7 +13,7 @@ import com.example.youtubeapp.player.PlayerHeader
 import com.example.youtubeapp.player.PlayerVideo
 import com.example.youtubeapp.player.PlayerVideoModel
 
-class PlayerVideoAdapter(private val context: Context, private val onClick: (VideoItem) -> Unit) :
+class PlayerVideoAdapter(private val context: Context, private val onClick: (PlayerVideo) -> Unit) :
     ListAdapter<PlayerVideoModel, RecyclerView.ViewHolder>(diffUtil) {
 
     inner class HeaderViewHolder(private val binding: ItemVideoHeaderBinding) :
