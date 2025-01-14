@@ -120,6 +120,7 @@ class MainActivity : AppCompatActivity() {
         binding.playerRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = playerVideoAdapter
+            itemAnimator = null
         }
     }
 
