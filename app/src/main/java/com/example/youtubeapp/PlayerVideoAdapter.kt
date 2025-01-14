@@ -9,11 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.youtubeapp.databinding.ItemVideoBinding
 import com.example.youtubeapp.databinding.ItemVideoHeaderBinding
+import com.example.youtubeapp.player.PlayerVideoModel
 
 class PlayerVideoAdapter(private val context: Context, private val onClick: (VideoItem) -> Unit) :
-    ListAdapter<VideoItem, RecyclerView.ViewHolder>(diffUtil) {
+    ListAdapter<PlayerVideoModel, RecyclerView.ViewHolder>(diffUtil) {
+
     inner class HeaderViewHolder(private val binding: ItemVideoHeaderBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         fun bind(item: VideoItem) {
             binding.titleTextView.text = item.title
             binding.subTitleTextView.text = context.getString(
