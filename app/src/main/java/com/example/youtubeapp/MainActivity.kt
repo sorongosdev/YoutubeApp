@@ -115,6 +115,7 @@ class MainActivity : AppCompatActivity() {
                 it.id != videoItem.id
             }
             playerVideoAdapter.submitList(list)
+            binding.playerRecyclerView.scrollToPosition(0)
         }
 
         binding.playerRecyclerView.apply {
