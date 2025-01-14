@@ -1,4 +1,4 @@
-package com.example.youtubeapp
+package com.example.youtubeapp.player
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,11 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.youtubeapp.R
 import com.example.youtubeapp.databinding.ItemVideoBinding
 import com.example.youtubeapp.databinding.ItemVideoHeaderBinding
-import com.example.youtubeapp.player.PlayerHeader
-import com.example.youtubeapp.player.PlayerVideo
-import com.example.youtubeapp.player.PlayerVideoModel
 
 class PlayerVideoAdapter(private val context: Context, private val onClick: (PlayerVideo) -> Unit) :
     ListAdapter<PlayerVideoModel, RecyclerView.ViewHolder>(diffUtil) {
