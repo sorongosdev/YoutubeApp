@@ -98,7 +98,8 @@
         app:layout_constraintBottom_toBottomOf="@id/videoPlayerContainer"
         app:layout_constraintEnd_toStartOf="@id/hideButton"
         app:layout_constraintTop_toTopOf="@id/videoPlayerContainer"
-        tools:alpha="1" />
+        tools:alpha="1"
+        tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/hideButton"
@@ -110,7 +111,8 @@
         app:layout_constraintBottom_toBottomOf="@id/videoPlayerContainer"
         app:layout_constraintEnd_toEndOf="@id/videoPlayerContainer"
         app:layout_constraintTop_toTopOf="@id/videoPlayerContainer"
-        tools:alpha="1" />
+        tools:alpha="1"
+        tools:ignore="ContentDescription" />
 
     <FrameLayout
         android:id="@+id/recyclerViewContainer"
