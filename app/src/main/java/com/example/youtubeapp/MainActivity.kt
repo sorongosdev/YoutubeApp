@@ -2,6 +2,8 @@ package com.example.youtubeapp
 
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.media3.common.MediaItem
@@ -174,6 +176,21 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 })
+
+                val customPlay = binding.playerView.findViewById<ImageButton>(R.id.custom_play)
+                val customPause = binding.playerView.findViewById<ImageButton>(R.id.custom_pause)
+
+                customPlay.setOnClickListener {
+                    player?.play()
+                    customPlay.visibility = View.GONE
+                    customPause.visibility = View.VISIBLE
+                }
+
+                customPause.setOnClickListener {
+                    player?.pause()
+                    customPause.visibility = View.GONE
+                    customPlay.visibility = View.VISIBLE
+                }
             }
     }
 

@@ -7,7 +7,7 @@
     android:background="#99000000">
 
     <ImageButton
-        android:id="@+id/exo_play"
+        android:id="@+id/custom_play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"
@@ -21,14 +21,12 @@
         tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <ImageButton
-        android:id="@+id/exo_pause"
+        android:id="@+id/custom_pause"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"
         android:padding="10dp"
         android:src="@drawable/ic_pause"
-        android:visibility="gone"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
