@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity() {
         initControlButton()
         initHideButton()
 
-        videoAdapter.submitList(videoList.videos)
     }
 
     private fun initHideButton() {
@@ -89,6 +88,8 @@ class MainActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(context)
             adapter = videoAdapter
         }
+
+        videoAdapter.submitList(videoList.videos)
     }
 
     private fun initMotionLayout() {
