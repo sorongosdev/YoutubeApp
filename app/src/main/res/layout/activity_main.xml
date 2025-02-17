@@ -33,9 +33,10 @@
                     android:layout_height="wrap_content"
                     android:drawablePadding="3dp"
                     android:text="@string/app_name"
+                    android:fontFamily="@font/robotocondensed_medium"
                     android:textColor="@color/black"
                     android:textSize="24sp"
-                    app:drawableStartCompat="@drawable/baseline_smart_display_24"
+                    app:drawableStartCompat="@drawable/ic_youtube"
                     app:drawableTint="?attr/colorPrimary">
 
                 </TextView>
