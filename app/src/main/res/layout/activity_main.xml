@@ -36,8 +36,7 @@
                     android:fontFamily="@font/robotocondensed_medium"
                     android:textColor="@color/black"
                     android:textSize="24sp"
-                    app:drawableStartCompat="@drawable/ic_youtube"
-                    app:drawableTint="?attr/colorPrimary">
+                    app:drawableStartCompat="@drawable/ic_youtube">
 
                 </TextView>
             </androidx.appcompat.widget.Toolbar>
